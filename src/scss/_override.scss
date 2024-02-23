@@ -1,0 +1,63 @@
+html {
+    .bg-success {
+        color: white !important;
+    }
+
+    .bg-primary {
+        color: $white !important;
+    }
+
+    .bg-secondary {
+        color: $white !important;
+    }
+
+    .bg-warning {
+        color: $white !important;
+    }
+}
+
+.border,
+.v-divider {
+    border-color: rgba(var(--v-border-color), 1) !important;
+}
+
+
+.avtar-border {
+    border: 2px solid rgb(var(--v-theme-surface)) !important;
+}
+
+.v-dialog{
+    &.dialog-mw{
+        max-width: 800px;
+    }
+}
+
+.v-input--hide-message {
+    &>.v-input__details {
+        display: none;
+    }
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+div.v-card.card-snackbar {
+  max-width: 380px !important;
+  min-width: 344px !important;
+  min-height: 48px !important;
+
+  div {
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.v-menu .v-list-item__prepend > .v-icon {
+  margin-inline-end: 5px;
+}
+
+.v-divider {
+  opacity: 1;
+}

@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+.Trashes
+*.swp
+
+# Editor & IDE
+.vscode/
+.history/
+.idea/*
+!.idea/runConfigurations/
+*.code-workspace
+
+# Javascript
+node_modules/
+.nvmrc
+
+# Other
+dist/
+.env.local
+.netlify
