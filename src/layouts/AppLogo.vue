@@ -22,5 +22,10 @@ const dark = computed(() => {
 </script>
 
 <template>
-  <RouterLink class="text-h1 text-primary text-decoration-none" to="/"> C-INS </RouterLink>
+  <RouterLink
+    class="text-h1 text-primary text-decoration-none"
+    to="/"
+  >
+    C-INS
+  </RouterLink>
 </template>

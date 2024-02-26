@@ -24,22 +24,30 @@ onMounted(async () => {
       <!-- -------------------------------------- -->
       <!-- Left Sidebar -->
       <!-- -------------------------------------- -->
-      <template v-slot:leftpart>
+      <template #leftpart>
         <InscriptionsFilter />
       </template>
       <!-- -------------------------------------- -->
       <!-- Right Side Content Part -->
       <!-- -------------------------------------- -->
-      <template v-slot:rightpart>
+      <template #rightpart>
         <perfect-scrollbar>
           <v-sheet class="pa-4">
             <div class="d-flex gap-2 align-center mb-4 justify-space-between">
-              <h5 class="text-h5 d-none d-lg-flex font-weight-semibold">Inscriptions</h5>
+              <h5 class="text-h5 d-none d-lg-flex font-weight-semibold">
+                Inscriptions
+              </h5>
             </div>
 
             <template v-if="store.inscriptions && store.inscriptions.length >= 1">
               <v-row>
-                <v-col cols="12" lg="3" sm="6" v-for="item in store.inscriptions" :key="item.inscription_id">
+                <v-col
+                  v-for="item in store.inscriptions"
+                  :key="item.inscription_id"
+                  cols="12"
+                  lg="3"
+                  sm="6"
+                >
                   <Item :meta="item" />
                 </v-col>
               </v-row>
@@ -51,19 +59,22 @@ onMounted(async () => {
                     class="my-4"
                     :length="store.pages"
                     :disabled="store.loading"
-                    @update:modelValue="store.fetchInscriptions"
-                  ></v-pagination>
+                    @update:model-value="store.fetchInscriptions"
+                  />
                 </v-col>
               </v-row>
             </template>
-            <Empty v-else :loading="store.loading" />
+            <Empty
+              v-else
+              :loading="store.loading"
+            />
           </v-sheet>
         </perfect-scrollbar>
       </template>
       <!-- -------------------------------------- -->
       <!-- Mobile Sidebar -->
       <!-- -------------------------------------- -->
-      <template v-slot:mobileLeftContent>
+      <template #mobileLeftContent>
         <InscriptionsFilter />
       </template>
     </AppBaseCard>

@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useCustomizerStore } from '@/stores/customizer';
 
-import Logo from '@/layouts/Logo.vue';
+import AppLogo from '@/layouts/AppLogo.vue';
 
 const customizer = useCustomizerStore();
 const isDark = ref(false)
@@ -21,23 +21,38 @@ function changeTheme() {
 <template>
   <div class="pt-6 lp-mobile-sidebar">
     <div class="ml-6 mb-3">
-      <Logo />
+      <AppLogo />
     </div>
 
     <v-list class="py-0 px-2">
       <v-list-item rounded="md">
-        <v-btn variant="text" color="primary" class="custom-hover-primary nav-links" href="/inscriptions"> Inscriptions </v-btn>
+        <v-btn
+          variant="text"
+          color="primary"
+          class="custom-hover-primary nav-links"
+          href="/inscriptions"
+        >
+          Inscriptions
+        </v-btn>
         <!-- <v-btn variant="text" color="primary" class="custom-hover-primary nav-links"
           href="/inscriptions?filter=c-brc-20">C-BRC-20</v-btn> -->
-        <v-btn variant="text" color="primary" class="custom-hover-primary nav-links" href="https://github.com/inscription-c/insc/wiki/HTTP-API-Reference" target="_blank">Document</v-btn>
+        <v-btn
+          variant="text"
+          color="primary"
+          class="custom-hover-primary nav-links"
+          href="https://github.com/inscription-c/insc/wiki/HTTP-API-Reference"
+          target="_blank"
+        >
+          Document
+        </v-btn>
         <v-switch
           class="v-input--hide-message px-4"
           color="primary"
           true-icon="mdi-brightness-4"
           false-icon="mdi-brightness-7"
           :model-value="isDark"
-          @update:modelValue="changeTheme"
-        ></v-switch>
+          @update:model-value="changeTheme"
+        />
       </v-list-item>
     </v-list>
   </div>

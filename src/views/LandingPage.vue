@@ -7,7 +7,7 @@ import { useStatisticsStore } from '@/stores/statistics';
 import { formatBytes } from '@/utils/format';
 import config from '@/config';
 
-import Search from '@/layouts/Search.vue';
+import AppSearch from '@/layouts/AppSearch.vue';
 
 dayjs.extend(relativeTime);
 
@@ -106,8 +106,13 @@ async function loadLatestInscriptions() {
             </v-col>
           </v-row>
           <v-row justify="center">
-            <v-col lg="6" md="8" sm="10" xs="12">
-              <Search />
+            <v-col
+              lg="6"
+              md="8"
+              sm="10"
+              xs="12"
+            >
+              <AppSearch />
             </v-col>
           </v-row>
         </v-container>
@@ -115,65 +120,113 @@ async function loadLatestInscriptions() {
 
       <v-container>
         <v-row>
-          <v-col cols="12" sm="6">
+          <v-col
+            cols="12"
+            sm="6"
+          >
             <v-table class="latest-ins elevation-6 rounded-lg">
               <thead>
                 <tr>
-                  <th class="text-h3" colspan="3">Latest Inscriptions</th>
+                  <th
+                    class="text-h3"
+                    colspan="3"
+                  >
+                    Latest Inscriptions
+                  </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr v-if="latestInscriptions.length > 0" v-for="item in latestInscriptions" :key="item.id" class="ins-row">
+              <tbody v-if="latestInscriptions.length > 0">
+                <tr
+                  v-for="item in latestInscriptions"
+                  :key="item.id"
+                  class="ins-row"
+                >
                   <td class="py-4">
                     <router-link :to="'/inscription/' + item.id">
-                      <v-img v-if="item.content_type == 'image'" class="img-fluid" :width="80" aspect-ratio="1/1" cover :src="`${serverUrl}/content/${item.id}`" />
-                      <iframe v-else-if="item.content_type == 'html'"
+                      <v-img
+                        v-if="item.content_type == 'image'"
+                        class="img-fluid"
+                        :width="80"
+                        aspect-ratio="1/1"
+                        cover
+                        :src="`${serverUrl}/content/${item.id}`"
+                      />
+                      <iframe
+                        v-else-if="item.content_type == 'html'"
                         class="ins-iframe"
                         frameborder="0"
                         loading="lazy"
                         sandbox="allow-scripts"
-                        :src="`${serverUrl}/content/${item.id}`">
-                      </iframe>
-                      <div v-else class="ins-proto">{{ item.content_proto }}</div>
+                        :src="`${serverUrl}/content/${item.id}`"
+                      />
+                      <div
+                        v-else
+                        class="ins-proto"
+                      >
+                        {{ item.content_proto }}
+                      </div>
                     </router-link>
                   </td>
                   <td class="ins-2col py-4 px-0">
                     <router-link :to="'/inscription/' + item.id">
                       <h5 class="text-h5 font-weight-medium text-medium-emphasis text-secondary  text-truncate">
-                        Inscription #{{ item.serial_number.toLocaleString() }}</h5>
-                      <p class="text-body-1 font-weight-medium text-medium-emphasis">{{ item.content_type_text }} | {{
-                        item.content_length_text }}</p>
+                        Inscription #{{ item.serial_number.toLocaleString() }}
+                      </h5>
+                      <p class="text-body-1 font-weight-medium text-medium-emphasis">
+                        {{ item.content_type_text }} | {{
+                          item.content_length_text }}
+                      </p>
                     </router-link>
                   </td>
                   <td class="py-4 d-sm-table-cell d-none">
-                    <h6 class="text-body-1 text-right">{{ item.review_at }}</h6>
-                  </td>
-                </tr>
-                <tr v-else>
-                  <td class="text-body-1">
-                    Waiting for the first inscription ...
+                    <h6 class="text-body-1 text-right">
+                      {{ item.review_at }}
+                    </h6>
                   </td>
                 </tr>
                 <tr class="ins-row">
-                  <td class="py-4 bg-primary" colspan="3">
-                    <router-link class="text-h5 text-white text-decoration-none d-block width-100 text-center"
-                      to="/inscriptions">
+                  <td
+                    class="py-4 bg-primary"
+                    colspan="3"
+                  >
+                    <router-link
+                      class="text-h5 text-white text-decoration-none d-block width-100 text-center"
+                      to="/inscriptions"
+                    >
                       View all inscriptions
-                      <v-icon icon="mdi-arrow-right"></v-icon>
+                      <v-icon icon="mdi-arrow-right" />
                     </router-link>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                <tr>
+                  <td class="text-body-1">
+                    Waiting for the first inscription ...
                   </td>
                 </tr>
               </tbody>
             </v-table>
           </v-col>
-          <v-col cols="12" sm="4" offset-sm="1">
-            <div v-for="item in statistics" :key="item.title"
-              class="statistics d-flex align-center justify-space-between rounded-md mb-6 pa-3 bg-primary">
+          <v-col
+            cols="12"
+            sm="4"
+            offset-sm="1"
+          >
+            <div
+              v-for="item in statistics"
+              :key="item.title"
+              class="statistics d-flex align-center justify-space-between rounded-md mb-6 pa-3 bg-primary"
+            >
               <div>
-                <div class="text-h3 text-white">{{ item.value }}</div>
-                <div class="text mt-1 text-white">{{ item.title }}</div>
+                <div class="text-h3 text-white">
+                  {{ item.value }}
+                </div>
+                <div class="text mt-1 text-white">
+                  {{ item.title }}
+                </div>
               </div>
-              <v-icon :icon="item.icon"></v-icon>
+              <v-icon :icon="item.icon" />
             </div>
           </v-col>
         </v-row>

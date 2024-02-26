@@ -6,29 +6,46 @@ const sDrawer = ref(false);
 </script>
 
 <template>
-    <!--- Left -->
-    <div class="d-flex mainbox">
-        <div class="left-part" v-if="lgAndUp">
-            <slot name="leftpart"></slot>
-        </div>
-
-        <!--- Right -->
-        <div class="right-part">
-            <!---Toggle Button For mobile-->
-            <v-btn block @click="sDrawer = !sDrawer" variant="text" class="d-lg-none d-md-flex d-sm-flex">
-                <Menu2Icon size="20" class="mr-2" /> Menu
-            </v-btn>
-            <v-divider class="d-lg-none d-block" />
-            <slot name="rightpart"></slot>
-        </div>
+  <!--- Left -->
+  <div class="d-flex mainbox">
+    <div
+      v-if="lgAndUp"
+      class="left-part"
+    >
+      <slot name="leftpart" />
     </div>
 
-    <!-- Left for mobile -->
-    <v-navigation-drawer temporary v-model="sDrawer" width="200" top v-if="!lgAndUp">
-        <v-card-text class="pa-0">
-            <slot name="mobileLeftContent"></slot>
-        </v-card-text>
-    </v-navigation-drawer>
+    <!--- Right -->
+    <div class="right-part">
+      <!---Toggle Button For mobile-->
+      <v-btn
+        block
+        variant="text"
+        class="d-lg-none d-md-flex d-sm-flex"
+        @click="sDrawer = !sDrawer"
+      >
+        <Menu2Icon
+          size="20"
+          class="mr-2"
+        /> Menu
+      </v-btn>
+      <v-divider class="d-lg-none d-block" />
+      <slot name="rightpart" />
+    </div>
+  </div>
+
+  <!-- Left for mobile -->
+  <v-navigation-drawer
+    v-if="!lgAndUp"
+    v-model="sDrawer"
+    temporary
+    width="200"
+    top
+  >
+    <v-card-text class="pa-0">
+      <slot name="mobileLeftContent" />
+    </v-card-text>
+  </v-navigation-drawer>
 </template>
 
 <style lang="scss">

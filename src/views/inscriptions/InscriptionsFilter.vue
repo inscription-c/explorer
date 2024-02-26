@@ -81,16 +81,30 @@ async function onChangeFilter () {
 
 <template>
   <v-sheet class="pa-4 pt-1">
-    <v-expansion-panels v-model="panel" multiple>
+    <v-expansion-panels
+      v-model="panel"
+      multiple
+    >
       <v-expansion-panel elevation="0">
         <v-expansion-panel-title class="font-weight-medium custom-accordion">
           <v-icon icon="mdi-sort" />
           Sort
         </v-expansion-panel-title>
         <v-expansion-panel-text class="acco-body">
-          <v-radio-group class="d-flex flex-column align-start" :disabled="store.loading" v-model="sort" @update:modelValue="onChangeSort">
-            <v-radio v-for="item in sorts" :key="item.value" :color="item.color" :label="item.label" :value="item.value"
-              hide-details></v-radio>
+          <v-radio-group
+            v-model="sort"
+            class="d-flex flex-column align-start"
+            :disabled="store.loading"
+            @update:model-value="onChangeSort"
+          >
+            <v-radio
+              v-for="item in sorts"
+              :key="item.value"
+              :color="item.color"
+              :label="item.label"
+              :value="item.value"
+              hide-details
+            />
           </v-radio-group>
         </v-expansion-panel-text>
       </v-expansion-panel>
@@ -101,9 +115,20 @@ async function onChangeFilter () {
           Content Type
         </v-expansion-panel-title>
         <v-expansion-panel-text class="acco-body">
-          <v-radio-group class="d-flex flex-column align-start" :disabled="store.loading" v-model="contentType" @update:modelValue="onChangeFilter">
-            <v-radio v-for="item in contentTypes" :key="item.value" :color="item.color" :label="item.label" :value="item.value"
-              hide-details></v-radio>
+          <v-radio-group
+            v-model="contentType"
+            class="d-flex flex-column align-start"
+            :disabled="store.loading"
+            @update:model-value="onChangeFilter"
+          >
+            <v-radio
+              v-for="item in contentTypes"
+              :key="item.value"
+              :color="item.color"
+              :label="item.label"
+              :value="item.value"
+              hide-details
+            />
           </v-radio-group>
         </v-expansion-panel-text>
       </v-expansion-panel>
@@ -114,9 +139,20 @@ async function onChangeFilter () {
           Charms
         </v-expansion-panel-title>
         <v-expansion-panel-text class="acco-body">
-          <v-radio-group class="d-flex flex-column align-start" :disabled="store.loading" v-model="charm" @update:modelValue="onChangeFilter">
-            <v-radio v-for="item in charmTypes" :key="item.value" :color="item.color" :label="item.label" :value="item.value"
-              hide-details></v-radio>
+          <v-radio-group
+            v-model="charm"
+            class="d-flex flex-column align-start"
+            :disabled="store.loading"
+            @update:model-value="onChangeFilter"
+          >
+            <v-radio
+              v-for="item in charmTypes"
+              :key="item.value"
+              :color="item.color"
+              :label="item.label"
+              :value="item.value"
+              hide-details
+            />
           </v-radio-group>
         </v-expansion-panel-text>
       </v-expansion-panel>

@@ -60,37 +60,60 @@ async function onChangePage(page: number) {
 <template>
   <v-container>
     <v-row class="mt-4">
-      <v-col cols="12" class="d-flex justify-center order-sml-first">
+      <v-col
+        cols="12"
+        class="d-flex justify-center order-sml-first"
+      >
         <div class="text-center top-spacer">
-          <h3 class="mt-3">Ticker</h3>
+          <h3 class="mt-3">
+            Ticker
+          </h3>
           <h1>{{ ticker }}</h1>
         </div>
       </v-col>
     </v-row>
 
     <v-row>
-      <v-col class="d-flex justify-space-between" cols="12">
+      <v-col
+        class="d-flex justify-space-between"
+        cols="12"
+      >
         <h3><span class="text-success">{{ insStore.total.toLocaleString() }}</span> inscriptions</h3>
         <v-menu>
-          <template v-slot:activator="{ props }">
-            <v-btn color="primary" :prepend-icon="sortSelected.icon" :loading="sortLoading" v-bind="props">{{ sortSelected.label }}</v-btn>
+          <template #activator="{ props }">
+            <v-btn
+              color="primary"
+              :prepend-icon="sortSelected.icon"
+              :loading="sortLoading"
+              v-bind="props"
+            >
+              {{ sortSelected.label }}
+            </v-btn>
           </template>
 
           <v-list>
-            <v-list-item v-for="item in sorts" :key="item.value"
+            <v-list-item
+              v-for="item in sorts"
+              :key="item.value"
               density="compact"
               :value="item.value"
               :prepend-icon="item.icon"
               :title="item.label"
-              @click="onChangeSort(item.value)">
-            </v-list-item>
+              @click="onChangeSort(item.value)"
+            />
           </v-list>
         </v-menu>
       </v-col>
     </v-row>
 
     <v-row>
-      <v-col cols="12" lg="3" sm="6" v-for="item in insStore.inscriptions" :key="item.inscription_id">
+      <v-col
+        v-for="item in insStore.inscriptions"
+        :key="item.inscription_id"
+        cols="12"
+        lg="3"
+        sm="6"
+      >
         <Item :meta="item" />
       </v-col>
     </v-row>
@@ -103,8 +126,8 @@ async function onChangePage(page: number) {
           class="my-4"
           :length="Math.ceil(insStore.total / insStore.limit)"
           :disabled="insStore.loading"
-          @update:modelValue="onChangePage"
-        ></v-pagination>
+          @update:model-value="onChangePage"
+        />
       </v-col>
     </v-row>
   </v-container>

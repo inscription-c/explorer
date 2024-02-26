@@ -40,32 +40,61 @@ onMounted(async () => {
 </script>
 
 <template>
-  <v-card variant="outlined" class="rounded overflow-hidden">
+  <v-card
+    variant="outlined"
+    class="rounded overflow-hidden"
+  >
     <router-link :to="`/inscription/${meta!.inscription_id}`">
-      <v-responsive v-if="contentType === 'image'" aspect-ratio="1">
-        <v-img aspect-ratio="1/1" cover :src="`${serverUrl}/content/${meta.inscription_id}`" />
+      <v-responsive
+        v-if="contentType === 'image'"
+        aspect-ratio="1"
+      >
+        <v-img
+          aspect-ratio="1/1"
+          cover
+          :src="`${serverUrl}/content/${meta.inscription_id}`"
+        />
       </v-responsive>
-      <v-responsive v-else-if="contentType === 'html'" aspect-ratio="1">
+      <v-responsive
+        v-else-if="contentType === 'html'"
+        aspect-ratio="1"
+      >
         <iframe
           class="w-100 h-100"
           frameborder="0"
           loading="lazy"
           sandbox="allow-scripts"
-          :src="`${serverUrl}/content/${meta!.inscription_id}`">
-        </iframe>
+          :src="`${serverUrl}/content/${meta!.inscription_id}`"
+        />
       </v-responsive>
-      <v-responsive v-else aspect-ratio="1">
-        <div v-if="content" class="ins-content h-100 d-flex flex-column align-center justify-center">
-          <h3 class="text-primary">{{ content.tick }}</h3>
-          <h4 class="text-success">{{ content.op }} {{ content.max }}</h4>
+      <v-responsive
+        v-else
+        aspect-ratio="1"
+      >
+        <div
+          v-if="content"
+          class="ins-content h-100 d-flex flex-column align-center justify-center"
+        >
+          <h3 class="text-primary">
+            {{ content.tick }}
+          </h3>
+          <h4 class="text-success">
+            {{ content.op }} {{ content.max }}
+          </h4>
         </div>
       </v-responsive>
       <v-card-item class="pa-3">
-        <h6 class="text-h6">#{{ serial_number }}</h6>
+        <h6 class="text-h6">
+          #{{ serial_number }}
+        </h6>
 
         <div class="d-flex align-center justify-space-between mt-1">
-          <p class="text-body-2 font-weight-bold text-secondary">{{ meta.content_protocol ? meta.content_protocol.toUpperCase() : 'Unkown' }}</p>
-          <p class="text-body-2 font-weight-bold text-success">{{ chainName }}</p>
+          <p class="text-body-2 font-weight-bold text-secondary">
+            {{ meta.content_protocol ? meta.content_protocol.toUpperCase() : 'Unkown' }}
+          </p>
+          <p class="text-body-2 font-weight-bold text-success">
+            {{ chainName }}
+          </p>
         </div>
       </v-card-item>
     </router-link>

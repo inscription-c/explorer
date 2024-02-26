@@ -7,7 +7,7 @@
         "preview": "vite preview --port 5050",
         "deploy": "ntl deploy",
         "typecheck": "vue-tsc --noEmit",
-        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+        "lint": "eslint . --ext .vue,.ts --fix --ignore-path .gitignore"
     },
     "dependencies": {
         "@sentry/vue": "^7.102.1",
