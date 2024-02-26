@@ -5,7 +5,8 @@
         "dev": "vite",
         "build": "vue-tsc --noEmit && vite build",
         "preview": "vite preview --port 5050",
-        "deploy": "ntl deploy",
+        "deploy:mainnet": "npx wrangler pages deploy ./dist --project-name c-ins --branch main",
+        "deploy:testnet": "npx wrangler pages deploy ./dist --project-name c-ins-test --branch testnet",
         "typecheck": "vue-tsc --noEmit",
         "lint": "eslint . --ext .vue,.ts --fix --ignore-path .gitignore"
     },
