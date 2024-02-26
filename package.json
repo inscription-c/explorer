@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "scripts": {
         "dev": "vite",
-        "build": "vue-tsc --noEmit && vite build",
+        "build:testnet": "vue-tsc --noEmit && vite build --mode testnet",
+        "build:mainnet": "vue-tsc --noEmit && vite build --mode mainnet",
         "preview": "vite preview --port 5050",
         "deploy:mainnet": "npx wrangler pages deploy ./dist --project-name c-ins --branch main",
         "deploy:testnet": "npx wrangler pages deploy ./dist --project-name c-ins-test --branch testnet",
