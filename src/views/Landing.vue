@@ -48,7 +48,7 @@ const latestInscriptions = computed(() => {
       };
     })
   } else {
-    []
+    return [];
   }
 });
 
@@ -123,7 +123,7 @@ async function loadLatestInscriptions() {
                 </tr>
               </thead>
               <tbody>
-                <tr class="ins-row" v-for="item in latestInscriptions" :key="item.id">
+                <tr v-if="latestInscriptions.length > 0" v-for="item in latestInscriptions" :key="item.id" class="ins-row">
                   <td class="py-4">
                     <router-link :to="'/inscription/' + item.id">
                       <v-img v-if="item.content_type == 'image'" class="img-fluid" :width="80" aspect-ratio="1/1" cover :src="`${serverUrl}/content/${item.id}`" />
@@ -147,6 +147,11 @@ async function loadLatestInscriptions() {
                   </td>
                   <td class="py-4 d-sm-table-cell d-none">
                     <h6 class="text-body-1 text-right">{{ item.review_at }}</h6>
+                  </td>
+                </tr>
+                <tr v-else>
+                  <td class="text-body-1">
+                    Waiting for the first inscription ...
                   </td>
                 </tr>
                 <tr class="ins-row">
