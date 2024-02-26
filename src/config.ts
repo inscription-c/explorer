@@ -31,10 +31,7 @@ const config: ConfigProps = {
     sentry: {
         dsn: import.meta.env.VITE_SENTRY_DSN,
         tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE),
-        tracePropagationTargets: [
-          'localhost',
-          import.meta.env.VITE_SENTRY_TARGETS_1,
-        ],
+        tracePropagationTargets: [ 'localhost' ],
         replaysSessionSampleRate: 0.1,
         replaysOnErrorSampleRate: 1,
     },

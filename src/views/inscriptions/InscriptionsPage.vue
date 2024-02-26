@@ -7,7 +7,7 @@ import { useInscriptionStore } from '@/stores/inscriptions';
 import AppBaseCard from '@/components/AppBaseCard.vue';
 import Item from '@/components/InscriptionPreview.vue';
 import InscriptionsFilter from '@/views/inscriptions/InscriptionsFilter.vue';
-import Empty from '@/views/inscriptions/Empty.vue';
+import EmptyPage from '@/views/inscriptions/EmptyPage.vue';
 
 dayjs.extend(relativeTime);
 
@@ -64,7 +64,7 @@ onMounted(async () => {
                 </v-col>
               </v-row>
             </template>
-            <Empty
+            <EmptyPage
               v-else
               :loading="store.loading"
             />

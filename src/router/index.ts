@@ -7,7 +7,7 @@ export const router = createRouter({
     routes: [
         {
             path: '/:pathMatch(.*)*',
-            component: () => import('@/views/Error.vue')
+            component: () => import('@/views/ErrorPage.vue')
         },
         MainRoutes,
         DevRoutes,

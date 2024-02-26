@@ -161,7 +161,7 @@ function copyLink() {
               />
             </v-responsive>
           </template>
-          <template v-if="contentType === 'html'">
+          <template v-else-if="contentType === 'html'">
             <v-responsive
               :aspect-ratio="1"
               :max-width="572"
