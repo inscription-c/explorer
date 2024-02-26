@@ -5,8 +5,8 @@ import { default as relativeTime } from 'dayjs/plugin/relativeTime';
 import { useInscriptionStore } from '@/stores/inscriptions';
 
 import AppBaseCard from '@/components/AppBaseCard.vue';
+import Item from '@/components/InscriptionPreview.vue';
 import InscriptionsFilter from '@/views/inscriptions/InscriptionsFilter.vue';
-import Item from '@/views/inscriptions/Item.vue';
 import Empty from '@/views/inscriptions/Empty.vue';
 
 dayjs.extend(relativeTime);

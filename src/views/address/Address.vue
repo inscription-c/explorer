@@ -6,7 +6,7 @@ import { default as relativeTime } from 'dayjs/plugin/relativeTime';
 import { useInscriptionStore } from '@/stores/inscriptions';
 import type { ContentProtocol, SortBy } from '@/types/Inscriptions';
 
-import Item from '@/views/inscriptions/Item.vue';
+import Item from '@/components/InscriptionPreview.vue';
 
 dayjs.extend(relativeTime);
 

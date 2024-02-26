@@ -21,8 +21,18 @@ const serial_number = props.meta?.inscription_number.toLocaleString();
 let content = ref<any>(null);
 const serverUrl = ref(config.serverUrl);
 
+const contentType = computed(() => {
+  if (props.meta.content_type.startsWith('image')) {
+    return 'image';
+  } else if (props.meta.content_type.includes('html')) {
+    return 'html';
+  } else {
+    return 'text';
+  }
+});
+
 onMounted(async () => {
-  if (!props.meta.content_type.startsWith('image')) {
+  if (contentType.value === 'text') {
     content.value = await store.fetchContentById(props.meta!.inscription_id);
   }
   loading.value = false;
@@ -32,8 +42,17 @@ onMounted(async () => {
 <template>
   <v-card variant="outlined" class="rounded overflow-hidden">
     <router-link :to="`/inscription/${meta!.inscription_id}`">
-      <v-responsive v-if="meta!.content_type === 'image'" aspect-ratio="1">
+      <v-responsive v-if="contentType === 'image'" aspect-ratio="1">
         <v-img aspect-ratio="1/1" cover :src="`${serverUrl}/content/${meta.inscription_id}`" />
+      </v-responsive>
+      <v-responsive v-else-if="contentType === 'html'" aspect-ratio="1">
+        <iframe
+          class="w-100 h-100"
+          frameborder="0"
+          loading="lazy"
+          sandbox="allow-scripts"
+          :src="`${serverUrl}/content/${meta!.inscription_id}`">
+        </iframe>
       </v-responsive>
       <v-responsive v-else aspect-ratio="1">
         <div v-if="content" class="ins-content h-100 d-flex flex-column align-center justify-center">

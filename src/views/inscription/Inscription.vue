@@ -88,6 +88,8 @@ const cInsDesc = computed(() => {
 const contentType = computed(() => {
   if (detail.value?.content_type.startsWith('image')) {
     return 'image';
+  } else if (detail.value?.content_type.includes('html')) {
+    return 'html';
   } else {
     return 'text';
   }
@@ -115,9 +117,17 @@ async function loadInscription() {
   loading.value = false
 }
 
+const previewCard = ref<any>(null)
+const codeSize = ref('0px')
 const showRaw = ref(false)
 function onShowRaw() {
   showRaw.value = !showRaw.value;
+
+  if (contentType.value === 'html') {
+    if (showRaw.value) {
+      codeSize.value = `${previewCard.value.$el.clientWidth}px`;
+    }
+  }
 }
 
 const shareLink = ref<any>(null)
@@ -133,12 +143,39 @@ function copyLink() {
   <v-container>
     <v-row class="mt-sm-5">
       <v-col cols="12" sm="6">
-        <v-skeleton-loader v-if="loading" type="card"></v-skeleton-loader>
-        <v-card v-else class="overflow-hidden" elevation="10" rounded>
+        <v-card ref="previewCard" class="overflow-hidden" elevation="10" rounded>
           <template v-if="contentType === 'image'">
             <v-responsive :aspect-ratio="1">
               <v-img aspect-ratio="1/1" cover :src="`${serverUrl}/content/${detail?.inscription_id}`" />
             </v-responsive>
+          </template>
+          <template v-if="contentType === 'html'">
+            <v-responsive :aspect-ratio="1" :max-width="572">
+              <iframe v-if="!showRaw"
+                class="w-100 h-100"
+                frameborder="0"
+                loading="lazy"
+                sandbox="allow-scripts"
+                :src="`${serverUrl}/content/${detail?.inscription_id}`"></iframe>
+              <div v-else class="html-code" :style="{ width: codeSize, height: codeSize }">
+                <pre>{{ content.trim() }}</pre>
+              </div>
+            </v-responsive>
+            <div class="d-flex justify-end mr-4 mt-n7">
+              <v-tooltip text="Show raw data" location="bottom">
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                    v-bind="props"
+                    icon="mdi-code-braces"
+                    color="primary"
+                    class="ml-auto"
+                    size="large"
+                    @click="onShowRaw"
+                    >
+                  </v-btn>
+                </template>
+              </v-tooltip>
+            </div>
           </template>
           <template v-else>
             <v-responsive :aspect-ratio="1">
@@ -190,14 +227,13 @@ function copyLink() {
       </v-col>
 
       <v-col cols="12" sm="6">
-        <v-skeleton-loader v-if="loading || !detail" type="card"></v-skeleton-loader>
-        <v-card v-else elevation="10">
+        <v-card elevation="10">
           <v-card-item>
             <v-card-title class="text-h2">
-              #{{ detail.inscription_number.toLocaleString() }}
+              #{{ detail?.inscription_number.toLocaleString() }}
             </v-card-title>
 
-            <v-card-subtitle v-if="content && detail.content_protocol === 'c-brc-20'" class="text-h5">
+            <v-card-subtitle v-if="content && detail?.content_protocol === 'c-brc-20'" class="text-h5">
               <v-icon icon="mdi-rocket-launch-outline"></v-icon>
               <template v-if="content.op === 'deploy'">
                 {{ content.op }}
@@ -233,6 +269,13 @@ function copyLink() {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  background-color: rgb(var(--v-theme-lightprimary));
+}
+
+.html-code {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
   background-color: rgb(var(--v-theme-lightprimary));
 }
 

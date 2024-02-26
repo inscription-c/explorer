@@ -21,10 +21,26 @@ const latestInscriptions = computed(() => {
 
   if (inscriptions && inscriptions?.length > 0) {
     return inscriptions.slice(0, 5).map((item) => {
+      let contentTypeText;
+      if (item.content_type.includes(';')) {
+        contentTypeText = item.content_type.split(';')[0];
+      } else {
+        contentTypeText = item.content_type;
+      }
+      let contentType;
+      if (item.content_type.includes('image')) {
+        contentType = 'image';
+      } else if (item.content_type.includes('html')) {
+        contentType = 'html';
+      } else {
+        contentType = 'text';
+      }
+
       return {
         id: item.inscription_id,
         serial_number: item.inscription_number,
-        content_type: item.content_type.toUpperCase(),
+        content_type: contentType,
+        content_type_text: contentTypeText.toUpperCase(),
         content_length_text: `${item.content_length.toLocaleString()} bytes`,
         content_proto: 'C-BRC-20',
         image_url: '',
@@ -63,7 +79,7 @@ onMounted(() => {
 
   timer = setInterval(async () => {
     await loadLatestInscriptions();
-  }, 3000);
+  }, 30000);
 });
 
 onUnmounted(() => {
@@ -110,7 +126,14 @@ async function loadLatestInscriptions() {
                 <tr class="ins-row" v-for="item in latestInscriptions" :key="item.id">
                   <td class="py-4">
                     <router-link :to="'/inscription/' + item.id">
-                      <v-img v-if="item.content_type == 'IMAGE'" class="img-fluid" :width="80" aspect-ratio="1/1" cover :src="`${serverUrl}/content/${item.id}`" />
+                      <v-img v-if="item.content_type == 'image'" class="img-fluid" :width="80" aspect-ratio="1/1" cover :src="`${serverUrl}/content/${item.id}`" />
+                      <iframe v-else-if="item.content_type == 'html'"
+                        class="ins-iframe"
+                        frameborder="0"
+                        loading="lazy"
+                        sandbox="allow-scripts"
+                        :src="`${serverUrl}/content/${item.id}`">
+                      </iframe>
                       <div v-else class="ins-proto">{{ item.content_proto }}</div>
                     </router-link>
                   </td>
@@ -118,7 +141,7 @@ async function loadLatestInscriptions() {
                     <router-link :to="'/inscription/' + item.id">
                       <h5 class="text-h5 font-weight-medium text-medium-emphasis text-secondary  text-truncate">
                         Inscription #{{ item.serial_number.toLocaleString() }}</h5>
-                      <p class="text-body-1 font-weight-medium text-medium-emphasis">{{ item.content_type }} | {{
+                      <p class="text-body-1 font-weight-medium text-medium-emphasis">{{ item.content_type_text }} | {{
                         item.content_length_text }}</p>
                     </router-link>
                   </td>
@@ -160,6 +183,11 @@ async function loadLatestInscriptions() {
 }
 
 .latest-ins {
+  .ins-iframe {
+    width: 80px;
+    height: 80px;
+  }
+
   .ins-proto {
     width: 80px;
     height: 80px;
