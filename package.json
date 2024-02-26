@@ -10,6 +10,7 @@
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
     },
     "dependencies": {
+        "@sentry/vue": "^7.102.1",
         "axios": "^1.6.7",
         "date-fns": "^2.29.3",
         "dayjs": "^1.11.10",

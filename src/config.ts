@@ -8,6 +8,13 @@ export type ConfigProps = {
     boxed: boolean;
     setBorderCard: boolean;
 
+    sentry: {
+        dsn: string,
+        tracesSampleRate: number,
+        tracePropagationTargets: string[],
+        replaysSessionSampleRate: number,
+        replaysOnErrorSampleRate: number,
+    },
     serverUrl: string,
 };
 
@@ -21,6 +28,16 @@ const config: ConfigProps = {
     boxed: true,
     setBorderCard: false,
 
+    sentry: {
+        dsn: import.meta.env.VITE_SENTRY_DSN,
+        tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE),
+        tracePropagationTargets: [
+          'localhost',
+          import.meta.env.VITE_SENTRY_TARGETS_1,
+        ],
+        replaysSessionSampleRate: 0.1,
+        replaysOnErrorSampleRate: 1,
+    },
     serverUrl: import.meta.env.VITE_SERVER_URL,
 };
 

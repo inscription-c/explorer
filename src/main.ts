@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { router } from './router';
 import App from './App.vue';
+import config from './config';
 
 // Plugins
 import { createPinia } from 'pinia';
@@ -10,6 +11,7 @@ import Maska from 'maska';
 import { createI18n } from 'vue-i18n';
 import messages from '@/utils/locales/messages';
 import VueScrollTo from 'vue-scrollto';
+import * as Sentry from "@sentry/vue";
 
 // CSS
 import '@/scss/style.scss';
@@ -23,6 +25,23 @@ const i18n = createI18n({
 });
 
 const app = createApp(App);
+
+if (config.sentry.dsn) {
+  console.log('Sentry enabled');
+
+  Sentry.init({
+    app,
+    environment: import.meta.env.MODE,
+    integrations: [
+      Sentry.browserTracingIntegration({ router }),
+      Sentry.replayIntegration(),
+    ],
+    ...config.sentry,
+  });
+} else {
+  console.log('Sentry disabled');
+}
+
 app.use(router);
 app.use(createPinia());
 app.use(VueTablerIcons);
