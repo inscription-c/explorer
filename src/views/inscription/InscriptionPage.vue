@@ -20,7 +20,7 @@ const loading = ref(true)
 const browserDetail = ref<Inscription | null>(null);
 const detail = ref<InscriptionDetail | null>(null);
 const content = ref<any>(null);
-const serverUrl = ref(config.serverUrl);
+const indexerUrl = ref(config.indexerUrl);
 
 const fields = computed(() => {
   if (!detail.value) {
@@ -105,7 +105,7 @@ onUpdated(async () => {
 
 async function loadInscription() {
   const id = route.params.id as string;
-  browserDetail.value = await store.fetchBrowserDetailById(id) ?? null
+  browserDetail.value = await store.fetchExplorerDetailById(id) ?? null
   detail.value = await store.fetchDetailById(id) ?? null;
 
   if (!detail.value?.content_type.startsWith('image')) {
@@ -157,7 +157,7 @@ function copyLink() {
               <v-img
                 aspect-ratio="1/1"
                 cover
-                :src="`${serverUrl}/content/${detail?.inscription_id}`"
+                :src="`${indexerUrl}/content/${detail?.inscription_id}`"
               />
             </v-responsive>
           </template>
@@ -172,7 +172,7 @@ function copyLink() {
                 frameborder="0"
                 loading="lazy"
                 sandbox="allow-scripts"
-                :src="`${serverUrl}/content/${detail?.inscription_id}`"
+                :src="`${indexerUrl}/content/${detail?.inscription_id}`"
               />
               <div
                 v-else

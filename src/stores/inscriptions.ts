@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { toast } from 'vuetify-sonner';
-import client from '@/utils/client';
+import indexerClient from '@/utils/indexer-client';
+import explorerClient from '@/utils/explorer-client';
 import type { Inscription, InscriptionState, SortBy, ContentProtocol, ContentType, InscriptionDetail, Charm } from '@/types/Inscriptions';
-import { useGlobalPopupStore } from './global-popup';
 
 export const useInscriptionStore = defineStore({
   id: 'inscriptions',
@@ -34,8 +34,6 @@ export const useInscriptionStore = defineStore({
 
       console.log('Fetching inscriptions')
 
-      const popup = useGlobalPopupStore();
-
       try {
         let params: any = {
           page: this.page,
@@ -52,7 +50,7 @@ export const useInscriptionStore = defineStore({
           params['inscription_type'] = this.contentProtocol;
         }
 
-        const data = await client.post('/scan/inscriptions', params);
+        const data = await explorerClient.post('/inscriptions', params);
 
         const respData = data.data;
         this.inscriptions = respData.list;
@@ -64,7 +62,7 @@ export const useInscriptionStore = defineStore({
 
       this.loading = false;
     },
-    async fetchBrowserDetailById (id: string): Promise<Inscription | undefined> {
+    async fetchExplorerDetailById (id: string): Promise<Inscription | undefined> {
       const data = this.inscriptions.find(i => i.inscription_id === id);
       if (data) {
         console.log(`Found browser detail cache of ${id}, return directly.`)
@@ -80,7 +78,7 @@ export const useInscriptionStore = defineStore({
           limit: 1,
         }
 
-        const data = await client.post('/scan/inscriptions', params);
+        const data = await explorerClient.post('/inscriptions', params);
         return data.data.list.pop()
       } catch (error) {
         console.log(error);
@@ -95,7 +93,7 @@ export const useInscriptionStore = defineStore({
       console.log(`Fetching detail of ${id} ...`)
 
       try {
-        const data = await client.get(`/inscription/${id}`)
+        const data = await indexerClient.get(`/inscription/${id}`)
         return data.data
       } catch (error) {
         console.log(error);
@@ -110,7 +108,7 @@ export const useInscriptionStore = defineStore({
       console.log(`Fetching content of ${id} ...`)
 
       try {
-        const data = await client.get(`/content/${id}`)
+        const data = await indexerClient.get(`/content/${id}`)
         return data.data
       } catch (error) {
         console.log(error);
@@ -139,7 +137,7 @@ export const useInscriptionStore = defineStore({
           params['inscription_type'] = this.contentProtocol;
         }
 
-        const data = await client.post('/scan/inscriptions', params);
+        const data = await explorerClient.post('/inscriptions', params);
 
         const respData = data.data;
         this.page = respData.page;

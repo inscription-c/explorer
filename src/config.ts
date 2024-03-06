@@ -15,7 +15,8 @@ export type ConfigProps = {
         replaysSessionSampleRate: number,
         replaysOnErrorSampleRate: number,
     },
-    serverUrl: string,
+    indexerUrl: string,
+    explorerUrl: string,
 };
 
 const config: ConfigProps = {
@@ -35,7 +36,8 @@ const config: ConfigProps = {
         replaysSessionSampleRate: 0.1,
         replaysOnErrorSampleRate: 1,
     },
-    serverUrl: import.meta.env.VITE_SERVER_URL,
+    indexerUrl: import.meta.env.VITE_INDEXER_URL,
+    explorerUrl: import.meta.env.VITE_EXPLORER_URL,
 };
 
 export default config;

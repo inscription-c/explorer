@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import client from '@/utils/client';
+import client from '@/utils/explorer-client';
 import type { StatisticsState } from '@/types/Statistics';
 
 export const useStatisticsStore = defineStore({
@@ -13,7 +13,7 @@ export const useStatisticsStore = defineStore({
   actions: {
     async fetchStatistics () {
       try {
-        const data = await client.get('/scan/home/page/statistics');
+        const data = await client.get('/home/page/statistics');
 
         const respData = data.data;
         this.inscriptions = respData.inscriptions;

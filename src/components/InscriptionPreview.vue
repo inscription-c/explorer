@@ -19,7 +19,7 @@ const store = useInscriptionStore();
 const loading = ref(true);
 const serial_number = props.meta?.inscription_number.toLocaleString();
 let content = ref<any>(null);
-const serverUrl = ref(config.serverUrl);
+const indexerUrl = ref(config.indexerUrl);
 
 const contentType = computed(() => {
   if (props.meta.content_type.startsWith('image')) {
@@ -52,7 +52,7 @@ onMounted(async () => {
         <v-img
           aspect-ratio="1/1"
           cover
-          :src="`${serverUrl}/content/${meta.inscription_id}`"
+          :src="`${indexerUrl}/content/${meta.inscription_id}`"
         />
       </v-responsive>
       <v-responsive
@@ -64,7 +64,7 @@ onMounted(async () => {
           frameborder="0"
           loading="lazy"
           sandbox="allow-scripts"
-          :src="`${serverUrl}/content/${meta!.inscription_id}`"
+          :src="`${indexerUrl}/content/${meta!.inscription_id}`"
         />
       </v-responsive>
       <v-responsive

@@ -14,7 +14,7 @@ dayjs.extend(relativeTime);
 const insStore = useInscriptionStore();
 const statisticsStore = useStatisticsStore();
 
-const serverUrl = ref(config.serverUrl);
+const indexerUrl = ref(config.indexerUrl);
 
 const latestInscriptions = computed(() => {
   const inscriptions = insStore.inscriptions;
@@ -149,7 +149,7 @@ async function loadLatestInscriptions() {
                         :width="80"
                         aspect-ratio="1/1"
                         cover
-                        :src="`${serverUrl}/content/${item.id}`"
+                        :src="`${indexerUrl}/content/${item.id}`"
                       />
                       <iframe
                         v-else-if="item.content_type == 'html'"
@@ -157,7 +157,7 @@ async function loadLatestInscriptions() {
                         frameborder="0"
                         loading="lazy"
                         sandbox="allow-scripts"
-                        :src="`${serverUrl}/content/${item.id}`"
+                        :src="`${indexerUrl}/content/${item.id}`"
                       />
                       <div
                         v-else
