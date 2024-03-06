@@ -20,12 +20,12 @@ const showMenu = ref(false);
       Start Header
       ----------------------------------------------- -->
       <v-app-bar
-        class="lp-header"
+        class="horizontal-header lp-header"
         flat
         elevation="6"
         height="80"
       >
-        <v-container class=" py-sm-4 py-0">
+        <v-container class="py-sm-4 py-0">
           <v-toolbar class="d-flex align-center">
             <Logo />
 
