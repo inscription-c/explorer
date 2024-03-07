@@ -30,7 +30,7 @@ async function onSubmit () {
         router.push({ name: 'Inscription', params: { id } });
         return true;
       } else {
-        toast.error(`The inscription ${searchText.value} was not found.`, { duration: 5 * 1000 })
+        toast.error(`The inscription ${searchText.value} was not found.`)
         return false;
       }
     } else if (searchType === 'inscription_number') {
