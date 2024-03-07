@@ -37,6 +37,11 @@ const MainRoutes = {
       path: '/ticker/:ticker',
       component: () => import('@/views/ticker/TickerPage.vue')
     },
+    {
+      name: 'Inscribe',
+      path: '/inscribe',
+      component: () => import('@/views/inscribe/InscribePage.vue')
+    },
   ]
 };
 
