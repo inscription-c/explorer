@@ -17,6 +17,7 @@ export type ConfigProps = {
     },
     indexerUrl: string,
     explorerUrl: string,
+    mempoolUrl: string,
 };
 
 const config: ConfigProps = {
@@ -38,6 +39,7 @@ const config: ConfigProps = {
     },
     indexerUrl: import.meta.env.VITE_INDEXER_URL,
     explorerUrl: import.meta.env.VITE_EXPLORER_URL,
+    mempoolUrl: import.meta.env.VITE_MEMPOOL_URL,
 };
 
 export default config;
