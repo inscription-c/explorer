@@ -33,6 +33,11 @@ const basicForm = ref({
 const basicFormRules = {
   required: (v: string) => !!v || 'The field is required.',
   int: (v: number) => Number.isInteger(v) || 'The field must be an integer.',
+  tick: (v: string) => {
+    // The token name has 32 chars limit and can be duplicated. Characters should be limited to 0-9a-z and -.
+    const reg = /^[0-9a-z-]{1,32}$/;
+    return reg.test(v) || 'The token name should be 1-32 characters long and only contain `0-9a-z` and `-`.';
+  },
 }
 
 // Step 2
@@ -406,7 +411,7 @@ function onInscribeAnother() {
                           v-model="basicForm.tick"
                           type="text"
                           placeholder="The name of inscription"
-                          :rules="[basicFormRules.required]"
+                          :rules="[basicFormRules.required, basicFormRules.tick]"
                         />
                       </v-col>
                       <v-col cols="12">

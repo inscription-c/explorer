@@ -1,4 +1,6 @@
 export function formatBytes(bytes: number, decimals = 2) {
+  if (!bytes || typeof bytes !== 'number') return '0 Bytes'
+
   decimals = decimals < 0 ? 0 : decimals
 
   const k = 1000

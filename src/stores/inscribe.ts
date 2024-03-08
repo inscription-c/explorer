@@ -157,12 +157,11 @@ export const useInscribeStore = defineStore({
     },
     async fetchOrdersStatus() {
       await Promise.all(this.orders
-        // .filter((order) => order.status === 'pending')
+        .filter((order) => order.status === 'pending')
         .map(async (order) => {
           try {
             const data = await client.get(`/order/status/${order.id}`);
             const respData = data.data;
-            console.log(respData)
 
             if (respData.status === 2) {
               order.status = 'success'
