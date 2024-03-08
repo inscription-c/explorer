@@ -19,8 +19,8 @@ onMounted(() => {
 
 <template>
   <v-app
-    :theme="customizer.actTheme"
-    :class="[customizer.actTheme]"
+    :theme="customizer.theme"
+    :class="[customizer.theme]"
   >
     <!-- Global Popup -->
     <v-dialog

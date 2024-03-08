@@ -8,10 +8,10 @@ const isDark = ref(false)
 function changeTheme() {
   if (!isDark.value) {
     isDark.value = true
-    customizer.SET_THEME('DARK_BLUE_THEME')
+    customizer.setTheme('DARK_BLUE_THEME')
   } else {
     isDark.value = false
-    customizer.SET_THEME('BLUE_THEME')
+    customizer.setTheme('BLUE_THEME')
   }
 }
 </script>
