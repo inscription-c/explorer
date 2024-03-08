@@ -30,7 +30,7 @@ async function onSubmit () {
         router.push({ name: 'Inscription', params: { id } });
         return true;
       } else {
-        toast.error(`The inscription ${searchText.value} was not found.`, { duration: 99999 * 1000 })
+        toast.error(`The inscription ${searchText.value} was not found.`)
         return false;
       }
     } else if (searchType === 'inscription_number') {
@@ -45,11 +45,11 @@ async function onSubmit () {
         return false;
       }
     } else if (searchType === 'address') {
-      console.log(`Redirect to /address/${searchText}`);
+      console.log(`Redirect to /address/${searchText.value}`);
       router.push({ name: 'Address', params: { address: searchText.value } });
       return true;
     } else if (searchType === 'ticker') {
-      console.log(`Redirect to /ticker/${searchText}`);
+      console.log(`Redirect to /ticker/${searchText.value}`);
       router.push({ name: 'Ticker', params: { ticker: searchText.value } });
       return true;
     } else {
@@ -63,9 +63,18 @@ async function onSubmit () {
 </script>
 
 <template>
-  <v-form v-bind="props" :style="{ width: props.width }" @submit.prevent="onSubmit">
-    <v-text-field variant="solo-filled" hide-details prepend-inner-icon="mdi-magnify"
-      placeholder="Inscription, Address, Ticker ..." color="primary" v-model="searchText">
-    </v-text-field>
+  <v-form
+    v-bind="props"
+    :style="{ width: props.width }"
+    @submit.prevent="onSubmit"
+  >
+    <v-text-field
+      v-model="searchText"
+      variant="solo-filled"
+      hide-details
+      prepend-inner-icon="mdi-magnify"
+      placeholder="Inscription, Address, Ticker ..."
+      color="primary"
+    />
   </v-form>
 </template>

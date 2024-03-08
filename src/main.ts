@@ -27,7 +27,7 @@ const i18n = createI18n({
 const app = createApp(App);
 
 if (config.sentry.dsn) {
-  console.log('Sentry enabled');
+  console.log(`Sentry enabled with environment: ${import.meta.env.MODE}`);
 
   Sentry.init({
     app,

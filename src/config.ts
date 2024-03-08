@@ -1,13 +1,5 @@
 export type ConfigProps = {
-    Sidebar_drawer: any;
-    Customizer_drawer: boolean;
-    mini_sidebar: boolean;
-    setHorizontalLayout: boolean;
-    setRTLLayout: boolean;
-    actTheme: string;
-    boxed: boolean;
-    setBorderCard: boolean;
-
+    theme: string;
     sentry: {
         dsn: string,
         tracesSampleRate: number,
@@ -15,30 +7,23 @@ export type ConfigProps = {
         replaysSessionSampleRate: number,
         replaysOnErrorSampleRate: number,
     },
-    serverUrl: string,
+    indexerUrl: string,
+    explorerUrl: string,
+    mempoolUrl: string,
 };
 
 const config: ConfigProps = {
-    Sidebar_drawer: null,
-    Customizer_drawer: false,
-    mini_sidebar: false,
-    setHorizontalLayout: false, // Horizontal layout
-    setRTLLayout: false, // RTL layout
-    actTheme: 'BLUE_THEME',
-    boxed: true,
-    setBorderCard: false,
-
+    theme: 'BLUE_THEME',
     sentry: {
         dsn: import.meta.env.VITE_SENTRY_DSN,
         tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE),
-        tracePropagationTargets: [
-          'localhost',
-          import.meta.env.VITE_SENTRY_TARGETS_1,
-        ],
+        tracePropagationTargets: [ 'localhost' ],
         replaysSessionSampleRate: 0.1,
         replaysOnErrorSampleRate: 1,
     },
-    serverUrl: import.meta.env.VITE_SERVER_URL,
+    indexerUrl: import.meta.env.VITE_INDEXER_URL,
+    explorerUrl: import.meta.env.VITE_EXPLORER_URL,
+    mempoolUrl: import.meta.env.VITE_MEMPOOL_URL,
 };
 
 export default config;

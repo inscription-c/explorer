@@ -20,7 +20,7 @@ const loading = ref(true)
 const browserDetail = ref<Inscription | null>(null);
 const detail = ref<InscriptionDetail | null>(null);
 const content = ref<any>(null);
-const serverUrl = ref(config.serverUrl);
+const indexerUrl = ref(config.indexerUrl);
 
 const fields = computed(() => {
   if (!detail.value) {
@@ -105,7 +105,7 @@ onUpdated(async () => {
 
 async function loadInscription() {
   const id = route.params.id as string;
-  browserDetail.value = await store.fetchBrowserDetailById(id) ?? null
+  browserDetail.value = await store.fetchExplorerDetailById(id) ?? null
   detail.value = await store.fetchDetailById(id) ?? null;
 
   if (!detail.value?.content_type.startsWith('image')) {
@@ -142,28 +142,52 @@ function copyLink() {
 <template>
   <v-container>
     <v-row class="mt-sm-5">
-      <v-col cols="12" sm="6">
-        <v-card ref="previewCard" class="overflow-hidden" elevation="10" rounded>
+      <v-col
+        cols="12"
+        sm="6"
+      >
+        <v-card
+          ref="previewCard"
+          class="overflow-hidden"
+          elevation="10"
+          rounded
+        >
           <template v-if="contentType === 'image'">
             <v-responsive :aspect-ratio="1">
-              <v-img aspect-ratio="1/1" cover :src="`${serverUrl}/content/${detail?.inscription_id}`" />
+              <v-img
+                aspect-ratio="1/1"
+                cover
+                :src="`${indexerUrl}/content/${detail?.inscription_id}`"
+              />
             </v-responsive>
           </template>
-          <template v-if="contentType === 'html'">
-            <v-responsive :aspect-ratio="1" :max-width="572">
-              <iframe v-if="!showRaw"
+          <template v-else-if="contentType === 'html'">
+            <v-responsive
+              :aspect-ratio="1"
+              :max-width="572"
+            >
+              <iframe
+                v-if="!showRaw"
                 class="w-100 h-100"
                 frameborder="0"
                 loading="lazy"
                 sandbox="allow-scripts"
-                :src="`${serverUrl}/content/${detail?.inscription_id}`"></iframe>
-              <div v-else class="html-code" :style="{ width: codeSize, height: codeSize }">
+                :src="`${indexerUrl}/content/${detail?.inscription_id}`"
+              />
+              <div
+                v-else
+                class="html-code"
+                :style="{ width: codeSize, height: codeSize }"
+              >
                 <pre>{{ content.trim() }}</pre>
               </div>
             </v-responsive>
             <div class="d-flex justify-end mr-4 mt-n7">
-              <v-tooltip text="Show raw data" location="bottom">
-                <template v-slot:activator="{ props }">
+              <v-tooltip
+                text="Show raw data"
+                location="bottom"
+              >
+                <template #activator="{ props }">
                   <v-btn
                     v-bind="props"
                     icon="mdi-code-braces"
@@ -171,18 +195,24 @@ function copyLink() {
                     class="ml-auto"
                     size="large"
                     @click="onShowRaw"
-                    >
-                  </v-btn>
+                  />
                 </template>
               </v-tooltip>
             </div>
           </template>
           <template v-else>
             <v-responsive :aspect-ratio="1">
-              <div v-if="content" class="img-place-holder d-flex flex-column align-center justify-center overflow-auto">
+              <div
+                v-if="content"
+                class="img-place-holder d-flex flex-column align-center justify-center overflow-auto"
+              >
                 <template v-if="!showRaw">
-                  <h3 class="text-primary text-h1">{{ content.tick }}</h3>
-                  <h4 class="text-secondary text-h3">{{ content.op }}</h4>
+                  <h3 class="text-primary text-h1">
+                    {{ content.tick }}
+                  </h3>
+                  <h4 class="text-secondary text-h3">
+                    {{ content.op }}
+                  </h4>
                 </template>
                 <template v-else>
                   <pre>{{ JSON.stringify(content, null, 2) }}</pre>
@@ -190,8 +220,11 @@ function copyLink() {
               </div>
             </v-responsive>
             <div class="d-flex justify-end mr-4 mt-n7">
-              <v-tooltip text="Show raw data" location="bottom">
-                <template v-slot:activator="{ props }">
+              <v-tooltip
+                text="Show raw data"
+                location="bottom"
+              >
+                <template #activator="{ props }">
                   <v-btn
                     v-bind="props"
                     icon="mdi-code-braces"
@@ -199,42 +232,49 @@ function copyLink() {
                     class="ml-auto"
                     size="large"
                     @click="onShowRaw"
-                    >
-                  </v-btn>
+                  />
                 </template>
               </v-tooltip>
             </div>
           </template>
 
           <v-card-item :class="{ 'pa-6': contentType === 'image' }">
-              <h6 class="text-h6">Share</h6>
+            <h6 class="text-h6">
+              Share
+            </h6>
 
-              <div class="d-flex align-center justify-space-between mt-2">
-                <v-text-field
-                  ref="shareLink"
-                  variant="outlined"
-                  color="primary"
-                  readonly
-                  hide-details
-                  :value="currentUrl"
-                  :append-inner-icon="'mdi-content-copy'"
-                  @click="copyLink"
-                  @click:appendInner="copyLink">
-                </v-text-field>
-              </div>
+            <div class="d-flex align-center justify-space-between mt-2">
+              <v-text-field
+                ref="shareLink"
+                variant="outlined"
+                color="primary"
+                readonly
+                hide-details
+                :value="currentUrl"
+                :append-inner-icon="'mdi-content-copy'"
+                @click="copyLink"
+                @click:append-inner="copyLink"
+              />
+            </div>
           </v-card-item>
         </v-card>
       </v-col>
 
-      <v-col cols="12" sm="6">
+      <v-col
+        cols="12"
+        sm="6"
+      >
         <v-card elevation="10">
           <v-card-item>
             <v-card-title class="text-h2">
               #{{ detail?.inscription_number.toLocaleString() }}
             </v-card-title>
 
-            <v-card-subtitle v-if="content && detail?.content_protocol === 'c-brc-20'" class="text-h5">
-              <v-icon icon="mdi-rocket-launch-outline"></v-icon>
+            <v-card-subtitle
+              v-if="content && detail?.content_protocol === 'c-brc-20'"
+              class="text-h5"
+            >
+              <v-icon icon="mdi-rocket-launch-outline" />
               <template v-if="content.op === 'deploy'">
                 {{ content.op }}
                 <span class="text-secondary">{{ content.tick }}</span>
@@ -244,15 +284,31 @@ function copyLink() {
             </v-card-subtitle>
 
             <div class="fields mt-sm-5 mt-10">
-              <div v-for="item in fields" :key="item.title" class="d-flex align-center mt-6">
+              <div
+                v-for="item in fields"
+                :key="item.title"
+                class="d-flex align-center mt-6"
+              >
                 <div class="field-row">
-                  <h5 class="text-body-2">{{ item.title }}</h5>
-                  <p v-if="!item.to" class="text-h6 mt-1">{{ item.value }}</p>
-                  <router-link v-else :to="item.to" class="text-h6 mt-1 text-primary">{{ item.value }}</router-link>
+                  <h5 class="text-body-2">
+                    {{ item.title }}
+                  </h5>
+                  <p
+                    v-if="!item.to"
+                    class="text-h6 mt-1"
+                  >
+                    {{ item.value }}
+                  </p>
+                  <router-link
+                    v-else
+                    :to="item.to"
+                    class="text-h6 mt-1 text-primary"
+                  >
+                    {{ item.value }}
+                  </router-link>
                 </div>
               </div>
             </div>
-
           </v-card-item>
         </v-card>
       </v-col>

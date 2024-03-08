@@ -18,4 +18,5 @@ node_modules/
 # Other
 dist/
 .env.local
-.netlify
+.env.*.local
+.wrangler

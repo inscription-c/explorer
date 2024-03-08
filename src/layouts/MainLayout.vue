@@ -4,8 +4,8 @@ import { useCustomizerStore } from '@/stores/customizer';
 import { useGlobalPopupStore } from '@/stores/global-popup';
 import { onMounted } from 'vue';
 
-import Header from '@/layouts/Header.vue'
-import Footer from '@/layouts/Footer.vue'
+import Header from '@/layouts/AppHeader.vue'
+import Footer from '@/layouts/AppFooter.vue'
 import { VSonner, toast } from 'vuetify-sonner'
 
 const customizer = useCustomizerStore();
@@ -18,9 +18,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-app :theme="customizer.actTheme" :class="[customizer.actTheme]">
+  <v-app
+    :theme="customizer.theme"
+    :class="[customizer.theme]"
+  >
     <!-- Global Popup -->
-    <v-dialog width="auto" v-model="popup.show">
+    <v-dialog
+      v-model="popup.show"
+      width="auto"
+    >
       <v-alert
         class="global-popup"
         closable
@@ -30,16 +36,22 @@ onMounted(() => {
         :text="popup.message"
         :type="popup.type"
         @click:close="popup.close()"
-      ></v-alert>
+      />
     </v-dialog>
 
     <!-- Global Notify -->
-    <VSonner position="top-right" :duration="5000" />
+    <VSonner
+      position="top-right"
+      :duration="5000"
+    />
 
     <Header />
 
     <v-main>
-      <v-container fluid class="page-wrapper pa-0">
+      <v-container
+        fluid
+        class="page-wrapper pa-0"
+      >
         <RouterView />
       </v-container>
     </v-main>
