@@ -42,7 +42,7 @@ function changeTheme() {
           variant="text"
           color="primary"
           class="text-h6"
-          href="https://github.com/inscription-c/insc/wiki/HTTP-API-Reference"
+          href="https://docs.c-ins.com/"
           target="_blank"
         >
           Document

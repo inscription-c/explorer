@@ -20,7 +20,7 @@ function changeTheme() {
   <v-btn
     variant="text"
     color="primary"
-    class="text-h5"
+    class="text-h5 mr-2"
     href="/inscriptions"
   >
     Inscriptions
@@ -28,7 +28,7 @@ function changeTheme() {
   <v-btn
     variant="text"
     color="primary"
-    class="text-h5"
+    class="text-h5 mr-2"
     href="/inscribe"
   >
     Inscribe
@@ -36,8 +36,8 @@ function changeTheme() {
   <v-btn
     variant="text"
     color="primary"
-    class="text-h5"
-    href="https://github.com/inscription-c/insc/wiki/HTTP-API-Reference"
+    class="text-h5 mr-2"
+    href="https://docs.c-ins.com/"
     target="_blank"
   >
     Document
