@@ -1,6 +1,8 @@
 # C-INS Browser
 
-![License](https://img.shields.io/github/license/inscription-c/explorer.svg)
+![License](https://img.shields.io/github/license/inscription-c/explorer)
+![Issues](https://img.shields.io/github/issues/inscription-c/explorer)
+![PRs](https://img.shields.io/github/issues-pr/inscription-c/explorer)
 [![Deploy mainnet environment](https://github.com/inscription-c/explorer/actions/workflows/mainnet.yml/badge.svg?branch=main)](https://github.com/inscription-c/explorer/actions/workflows/mainnet.yml)
 [![Deploy testnet environment](https://github.com/inscription-c/explorer/actions/workflows/testnet.yml/badge.svg)](https://github.com/inscription-c/explorer/actions/workflows/testnet.yml)
 
